@@ -1,0 +1,28 @@
+﻿*{
+	font-family: "Arial Narrow";
+}
+h1 {
+	text-align: center;
+	font-weight: 100;
+	font-size: 590%;
+}
+h2{
+	font-weight: 500;
+	font-size: 200%;
+}
+.video{
+	text-align: center;
+}
+.video-container{
+	display:inline-block;
+}
+
+p a{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	font-size: 180%;
+	text-decoration: none;
+	text-align:center;
+	color: black;
+}

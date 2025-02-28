@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+	<link rel="icon" href="favicon.png">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>lapsus</title>
+	<link rel="stylesheet" href="style.css">
+</head>
+<body>
+	<h1>lapsus</h1>
+	<p><a href="https://discord.gg/K6tvXkkEgs">discord</a><p>
+	<div class="video">
+		<h2>Najnowszy film</h2>
+		<div class="video-container" id="video-container">
+			<!-- Tutaj zostanie wyświetlony film -->
+		</div>
+	</div>
+	<script>
+        const apiKey = 'AIzaSyDV44Mcgvl-m_b-Qw7JAFruJFin8Y7UFz0'; 
+        const channelId = 'UCR9_E1M9kp2aFgj3FMh07UQ';
+        const videoContainer = document.getElementById('video-container');
+		const unwantedHashtag = '#shorts';
+        // Funkcja do pobierania najnowszego filmu
+        async function getLatestVideoWithoutHashtag() {
+            try {
+                // Pobierz listę filmów z kanału
+                const response = await fetch(
+                    `https://www.googleapis.com/youtube/v3/search?key=${apiKey}&channelId=${channelId}&part=snippet,id&order=date&maxResults=10`
+                );
+                const data = await response.json();
+
+                if (data.items && data.items.length > 0) {
+                    // Przeszukaj filmy, aby znaleźć pierwszy bez niechcianego hashtagu
+                    for (const item of data.items) {
+                        const videoId = item.id.videoId;
+                        const videoTitle = item.snippet.title;
+                        const videoDescription = item.snippet.description;
+
+                        // Sprawdź, czy tytuł lub opis zawiera niechciany hashtag
+                        if (
+                            !videoTitle.toLowerCase().includes(unwantedHashtag.toLowerCase()) &&
+                            !videoDescription.toLowerCase().includes(unwantedHashtag.toLowerCase())
+                        ) {
+                            // Wyświetl film na stronie
+                            videoContainer.innerHTML = `
+                                <iframe width="560" height="315" src="https://www.youtube.com/embed/${videoId}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            `;
+                            return; // Zakończ funkcję po znalezieniu odpowiedniego filmu
+                        }
+                    }
+
+                    // Jeśli wszystkie filmy zawierają hashtag
+                    videoContainer.innerHTML = '<p>Brak filmów bez hashtagu.</p>';
+                } else {
+                    videoContainer.innerHTML = '<p>Brak dostępnych filmów.</p>';
+                }
+            } catch (error) {
+                console.error('Błąd podczas pobierania filmu:', error);
+                videoContainer.innerHTML = '<p>Wystąpił błąd podczas ładowania filmu.</p>';
+            }
+        }
+
+        // Wywołaj funkcję po załadowaniu strony
+        window.onload = getLatestVideoWithoutHashtag;
+    </script>
+</body>
+</html>

@@ -1,28 +1,116 @@
-﻿*{
-	font-family: Arial Narrow, sans-serif;
-}
-h1 {
-	text-align: center;
-	font-weight: 100;
-	font-size: 590%;
-}
-h2{
-	font-weight: 500;
-	font-size: 200%;
-}
-.video{
-	text-align: center;
-}
-.video-container{
-	display:inline-block;
+﻿@font-face {
+	font-family: 'Germanica';
+	src: url('font/Germanica.ttf') format('truetype');
+	font-weight: normal;
+	font-style: normal;
+  }
+  
+* {
+    box-sizing: border-box;
+    font-family: "Arial Narrow", sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
-p a{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	font-size: 180%;
-	text-decoration: none;
-	text-align:center;
-	color: black;
+body {
+    background-color: #f9f9f9;
+    color: #222;
+    line-height: 1.6;
 }
+
+.container {
+    max-width: 1200px; /* wider layout */
+    margin: 0 auto;
+    padding: 3rem 2rem;
+    text-align: center;
+}
+
+h1 {
+	font-family: "Germanica";
+    font-size: 5rem;
+    font-weight: 100;
+    margin-bottom: 1.5rem;
+}
+
+h2 {
+    font-size: 2.2rem;
+    font-weight: 500;
+    margin-bottom: 1rem;
+}
+
+.discord-link {
+    font-size: 1.5rem;
+    text-decoration: none;
+    color: black;
+    padding: 0.3rem 0.5rem;
+    border-bottom: 1px solid transparent;
+    transition: border-bottom 0.2s ease;
+}
+
+.discord-link:hover {
+    border-bottom: 1px solid black;
+}
+
+.video-container {
+    margin-top: 2rem;
+    display: inline-block;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+	width: 700px;
+}
+
+iframe {
+    border: none;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 800px;
+    height: 450px;
+}
+.title {
+	display: flex;
+	justify-content: center; /* centers the whole block */
+	gap: 1rem; /* spacing between image and text */
+	margin-bottom: 2rem;
+  }
+  
+  .title img {
+	margin-left: 15px;
+	margin-bottom: 30px;
+	width: 60px;
+	height: auto;
+	object-fit: contain;
+	padding: 0;
+  }
+  .spinning-bg {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 500px; /* Adjust size as needed */
+	height: 500px;
+	background-image: url('images.png'); /* Your image path */
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
+	z-index: -1;
+	opacity: 0.2; /* Adjust transparency */
+	animation: slow-spin 60s linear infinite;
+	pointer-events: none; /* Allows clicks to pass through */
+  }
+  
+  @keyframes slow-spin {
+	from {
+	  transform: translate(-50%, -50%) rotate(0deg);
+	}
+	to {
+	  transform: translate(-50%, -50%) rotate(360deg);
+	}
+  }
+  
+  /* Ensures content is above the background */
+  .container {
+	position: relative;
+	z-index: 1;
+	background-color: rgba(255, 255, 255, 0.7); /* Optional: slight white overlay for readability */
+  }

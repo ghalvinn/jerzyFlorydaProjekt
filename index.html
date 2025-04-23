@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <audio id="bgMusic" loop>
+  <audio id="bgMusic" loop> <!-- to fix - audio loops one song not the playlist --!>
   </audio>
 	<div class="spinning-bg"></div>
   <div class="container">
@@ -18,17 +18,16 @@
 	</div>
     <p><a href="https://discord.gg/K6tvXkkEgs" class="discord-link">discord server</a></p>
     <p><a href="https://instagram.com/ghalvinn" class="discord-link">instagram</a></p>
-    <p><a href="https://soundcloud.com/ghalvinn/likes" class="discord-link">muzyka której słucham</a></p>
+    <p><a href="https://soundcloud.com/ghalvinn/likes" class="discord-link">soundcloud</a></p>
 
     <div>
       <h2>Najnowszy film</h2>
       <div id="video"></div>
-	  <iframe width="560" height="315" 
-        src="https://www.youtube.com/embed/latest?channel=UCR9_E1M9kp2aFgj3FMh07UQ" 
-        frameborder="0" allowfullscreen></iframe>
+	  <iframe src="https://www.youtube.com/embed/fqKOSL2cnXA?si=7MN3gDvIzYvRaM_n"></iframe>
     </div>
+	<div id="randomVideo"></div>
   </div>
-
+	
   <script>
 	window.onload = () => {
 		const music = document.getElementById('bgMusic');
@@ -52,8 +51,39 @@
 		music.volume = 1;
 		playNext();
 		
+		fetch('videos.php')
+		  .then(res => res.json())
+		  .then(files => {
+			if (files.length === 0) return;
+
+			const randomIndex = Math.floor(Math.random() * files.length);
+			const file = files[randomIndex];
+			const container = document.getElementById('randomVideo');
+
+			if (file.endsWith('.gif')) {
+			  const img = document.createElement('img');
+			  img.src = file;
+			  img.alt = "Random gif";
+			  img.style.maxWidth = "100%";
+			  container.appendChild(img);
+			} else {
+			  const video = document.createElement('video');
+			  video.src = file;
+			  video.controls = true;
+			  video.autoplay = true;
+			  video.loop = true;
+			  video.muted = true;
+			  video.style.maxWidth = "100%";
+			  container.appendChild(video);
+			}
+		  });
+
+
 	};
-    
+	
   </script>
+	<footer>
+		<h7> Ta strona to zart! </h7>
+	</footer>
 </body>
 </html>

@@ -3,87 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>lapsus</title>
+  <title>jeetcentral</title>
   <link rel="icon" href="favicon.png">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <audio id="bgMusic" loop> <!-- to fix - audio loops one song not the playlist --!>
-  </audio>
-	<div class="spinning-bg"></div>
-  <div class="container">
-	<div class="title">
-		<img src="cross.png" style="width:100px;"/>
-		<h1>lapsus</h1>
-	</div>
-    <p><a href="https://discord.gg/K6tvXkkEgs" class="discord-link">discord server</a></p>
-    <p><a href="https://instagram.com/ghalvinn" class="discord-link">instagram</a></p>
-    <p><a href="https://soundcloud.com/ghalvinn/likes" class="discord-link">soundcloud</a></p>
-
-    <div>
-      <h2>Najnowszy film</h2>
-      <div id="video"></div>
-	  <iframe src="https://www.youtube.com/embed/fqKOSL2cnXA?si=7MN3gDvIzYvRaM_n"></iframe>
-    </div>
-	<div id="randomVideo"></div>
-  </div>
-	
   <script>
-	window.onload = () => {
-		const music = document.getElementById('bgMusic');
-		const playlist = [
-			'song/benice2me.m4a',
-			'song/onr.mp3',
-		];
-		
-		let current = 0;
-		function playNext() {
-			music.src = playlist[current];
-			music.play().catch(() => {
-			  document.body.addEventListener('click', () => music.play(), { once: true });
-			});
-		}
-		music.addEventListener('ended', () => {
-			current = (current + 1) % playlist.length;
-			playNext();
-		});
-		
-		music.volume = 1;
-		playNext();
-		
-		fetch('videos.php')
-		  .then(res => res.json())
-		  .then(files => {
-			if (files.length === 0) return;
-
-			const randomIndex = Math.floor(Math.random() * files.length);
-			const file = files[randomIndex];
-			const container = document.getElementById('randomVideo');
-
-			if (file.endsWith('.gif')) {
-			  const img = document.createElement('img');
-			  img.src = file;
-			  img.alt = "Random gif";
-			  img.style.maxWidth = "100%";
-			  container.appendChild(img);
-			} else {
-			  const video = document.createElement('video');
-			  video.src = file;
-			  video.controls = true;
-			  video.autoplay = true;
-			  video.loop = true;
-			  video.muted = true;
-			  video.style.maxWidth = "100%";
-			  container.appendChild(video);
-			}
-		  });
-
-
-	};
-	
+		window.onload = function () {
+		  location.replace("https://discord.gg/K6tvXkkEgs");
+		};	
   </script>
-	<footer>
-		<h7> Ta strona to zart! </h7>
-	</footer>
 </body>
 </html>
